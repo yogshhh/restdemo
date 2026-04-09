@@ -108,7 +108,7 @@ function SakuraPetals() {
 }
 
 /* ─── DATA ───────────────────────────────────────────────── */
-const NAV_LINKS = ["Home", "About", "Services", "Portfolio", "Contact"];
+const NAV_LINKS = ["Home", "About", "Services", "Portfolio", "Help", "Contact"];
 
 const DISHES = [
   { name: "Otoro Sashimi", desc: "Premium bluefin toro, shiso, freshly grated wasabi, house ponzu", tag: "Chef's Signature", img: "https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg?auto=compress&cs=tinysrgb&w=600" },
@@ -825,6 +825,200 @@ function Contact() {
   );
 }
 
+/* ─── HELP PAGE ──────────────────────────────────────────── */
+const FAQ_ITEMS = [
+  {
+    q: "How do I make a reservation at Sakura Sushi Bar?",
+    a: "You can reserve your table online via our Contact page, by calling +81 3 1234 5678, or by emailing reserve@sakurasushibar.jp. We recommend booking at least two weeks in advance, as our omakase seats are extremely limited."
+  },
+  {
+    q: "What is the omakase experience and how long does it last?",
+    a: "Omakase (お任せ) means 'I leave it to you' — you entrust your evening entirely to Chef Nakamura's seasonal vision. The full 15-course omakase experience typically lasts 2.5 to 3 hours. Every course reflects the finest ingredients available that day."
+  },
+  {
+    q: "Can dietary restrictions or allergies be accommodated?",
+    a: "Absolutely. Please share all dietary requirements, allergies, or intolerances when making your reservation. Our team will communicate these directly to Chef Nakamura, who will craft a personalised omakase menu to suit your needs without compromising on artistry."
+  },
+  {
+    q: "Is there a dress code at Sakura Sushi Bar?",
+    a: "We invite guests to dress in smart casual or formal attire to honour the spirit of the dining experience. We respectfully ask that sportswear, beachwear, and flip-flops not be worn in our dining rooms."
+  },
+  {
+    q: "Do you offer private dining rooms for special occasions?",
+    a: "Yes. We have exclusive tatami-style kaiseki rooms accommodating up to 20 guests. These are ideal for o-iwai celebrations, corporate omakase evenings, anniversaries, and intimate proposals under paper lantern light. Contact us to arrange a private booking."
+  },
+  {
+    q: "What is your cancellation and no-show policy?",
+    a: "We kindly ask for at least 48 hours' notice for cancellations or amendments. Cancellations within 24 hours and no-shows may incur a charge equivalent to the full omakase menu price per guest, as our tasting menus are prepared exclusively for each reservation."
+  },
+  {
+    q: "Do you cater for events outside the restaurant?",
+    a: "Yes — our Premium Catering service brings Sakura's Michelin-recognised artistry directly to your venue anywhere in the Tokyo metropolitan area. From intimate gatherings to large corporate events, our team delivers the same standard of excellence. Please reach out via our Contact page to discuss your requirements."
+  },
+  {
+    q: "What sake and drink pairings are available?",
+    a: "Our kikizake-shi (certified sake sommelier) has curated a cellar of over 200 labels, including rare Dassai, Hakkaisan, and vintage Yamazaki whisky expressions. We offer optional sake and whisky pairing menus designed to complement each course of the omakase perfectly."
+  },
+  {
+    q: "Is Sakura Sushi Bar suitable for children?",
+    a: "Sakura Sushi Bar is a fine dining destination designed for a contemplative, adult dining experience. We warmly welcome children aged 12 and above who are comfortable with a multi-course tasting format. We ask that families contact us in advance so we may prepare accordingly."
+  },
+  {
+    q: "Where is Sakura Sushi Bar located and how do I get there?",
+    a: "We are located at 2-14-6 Minami-Aoyama, Minato-ku, Tokyo, 107-0062, Japan. The nearest station is Omotesando on the Ginza, Chiyoda, and Hanzomon lines (5-minute walk). Valet parking is available upon request. Please use the 'Open in Maps' link on our Contact page for directions."
+  },
+];
+
+function Help() {
+  const [openIndex, setOpenIndex] = useState(null);
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const toggle = (i) => setOpenIndex(prev => prev === i ? null : i);
+
+  return (
+    <div className="bg-[#FFF8FA] pt-20">
+      {/* Header */}
+      <section className="max-w-3xl mx-auto px-6 py-12 text-center">
+        <SectionLabel label="Frequently Asked Questions" japanese="よくある質問" />
+        <h2 className="font-jp-serif text-5xl md:text-6xl text-[#2D0A1A] leading-tight mb-4 mt-3">
+          How Can We<br /><em className="text-[#E91E63]">Help You?</em>
+        </h2>
+        <RoseDivider />
+        <p className="font-jp-body text-[#1a0a10] text-base leading-relaxed mt-6 font-medium" style={{ lineHeight: 2 }}>
+          Find answers to the most common questions about dining at Sakura Sushi Bar.
+          If you need further assistance, please do not hesitate to contact us directly.
+        </p>
+      </section>
+
+      {/* FAQ Accordion */}
+      <section className="max-w-3xl mx-auto px-6 pb-16">
+        <div className="space-y-3">
+          {FAQ_ITEMS.map((item, i) => {
+            const isOpen = openIndex === i;
+            const isHovered = hoveredIndex === i;
+            return (
+              <div key={i}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                style={{
+                  border: isOpen
+                    ? "1px solid rgba(233,30,99,0.55)"
+                    : isHovered
+                    ? "1px solid rgba(233,30,99,0.35)"
+                    : "1px solid rgba(244,143,177,0.3)",
+                  boxShadow: isHovered || isOpen
+                    ? "0 8px 32px rgba(233,30,99,0.10), 0 2px 8px rgba(233,30,99,0.06)"
+                    : "0 1px 4px rgba(233,30,99,0.04)",
+                  transform: isHovered && !isOpen ? "translateY(-2px)" : "translateY(0)",
+                  background: isOpen ? "linear-gradient(135deg,#fff 80%,#FFF0F5 100%)" : "#fff",
+                  transition: "all 0.35s cubic-bezier(0.25,0.46,0.45,0.94)",
+                  borderRadius: "2px",
+                  overflow: "hidden",
+                  position: "relative",
+                }}>
+                {/* Left accent bar */}
+                <div style={{
+                  position: "absolute", left: 0, top: 0, bottom: 0, width: "3px",
+                  background: isOpen
+                    ? "linear-gradient(180deg,#E91E63,#F48FB1)"
+                    : isHovered
+                    ? "linear-gradient(180deg,rgba(233,30,99,0.5),rgba(244,143,177,0.3))"
+                    : "transparent",
+                  transition: "background 0.35s ease",
+                }} />
+                <button
+                  type="button"
+                  onClick={() => toggle(i)}
+                  className="w-full flex items-start justify-between gap-4 py-5 text-left"
+                  style={{ paddingLeft: "1.75rem", paddingRight: "1.5rem" }}>
+                  <div className="flex items-start gap-4">
+                    <span style={{
+                      fontFamily: "'Shippori Mincho', serif",
+                      fontSize: "1rem",
+                      marginTop: "2px",
+                      flexShrink: 0,
+                      color: isHovered || isOpen ? "#E91E63" : "rgba(233,30,99,0.35)",
+                      transition: "color 0.3s ease, transform 0.3s ease",
+                      transform: isHovered || isOpen ? "scale(1.15)" : "scale(1)",
+                      display: "inline-block",
+                    }}>{String(i + 1).padStart(2, "0")}</span>
+                    <span style={{
+                      fontFamily: "'Shippori Mincho', serif",
+                      fontSize: "1.05rem",
+                      lineHeight: 1.45,
+                      color: isOpen ? "#C2185B" : "#2D0A1A",
+                      transition: "color 0.3s ease, font-weight 0.3s ease",
+                      fontWeight: isHovered || isOpen ? 600 : 400,
+                    }}>{item.q}</span>
+                  </div>
+                  {/* Animated icon */}
+                  <span style={{
+                    flexShrink: 0,
+                    marginTop: "2px",
+                    width: "22px",
+                    height: "22px",
+                    borderRadius: "50%",
+                    border: isOpen
+                      ? "1.5px solid #E91E63"
+                      : isHovered
+                      ? "1.5px solid rgba(233,30,99,0.6)"
+                      : "1.5px solid rgba(244,143,177,0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: isOpen || isHovered ? "#E91E63" : "#F48FB1",
+                    fontSize: "1.1rem",
+                    fontWeight: 300,
+                    background: isOpen ? "rgba(233,30,99,0.07)" : isHovered ? "rgba(233,30,99,0.04)" : "transparent",
+                    transform: isOpen ? "rotate(45deg)" : isHovered ? "rotate(90deg)" : "rotate(0deg)",
+                    transition: "all 0.35s cubic-bezier(0.25,0.46,0.45,0.94)",
+                  }}>+</span>
+                </button>
+                {isOpen && (
+                  <div style={{ paddingLeft: "1.75rem", paddingRight: "1.5rem", paddingBottom: "1.5rem", animation: "fadeInUp 0.3s ease both" }}>
+                    <div style={{
+                      paddingLeft: "2.5rem",
+                      borderLeft: "2px solid rgba(233,30,99,0.3)",
+                      background: "linear-gradient(90deg,rgba(255,240,245,0.6),transparent)",
+                      paddingTop: "0.5rem",
+                      paddingBottom: "0.25rem",
+                      paddingRight: "0.5rem",
+                      borderRadius: "0 4px 4px 0",
+                    }}>
+                      <p className="font-jp-body text-[#1a0a10] text-sm md:text-base leading-relaxed font-medium" style={{ lineHeight: 2 }}>
+                        {item.a}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-14 text-center p-8 border border-[#F48FB1]/30 bg-[#FCF0F4] washi-texture rounded-sm">
+          <Mon size={36} opacity={0.2} />
+          <p className="font-jp-serif text-[#C2185B]/50 text-xl tracking-[0.5em] mt-4 mb-2">お問い合わせ</p>
+          <h3 className="font-jp-serif text-2xl text-[#2D0A1A] mb-3">Still Have Questions?</h3>
+          <p className="font-jp-body text-[#1a0a10] text-sm mb-6 font-medium">
+            Our team is happy to assist. Reach us by phone, email, or visit our Contact page.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a href="tel:+81312345678"
+              className="px-6 py-2.5 border border-[#E91E63]/50 text-[#E91E63] font-jp-body text-[0.6rem] tracking-[0.25em] uppercase hover:bg-[#E91E63] hover:text-white transition-all duration-300 rounded-sm">
+              📞 Call Us
+            </a>
+            <a href="mailto:reserve@sakurasushibar.jp"
+              className="px-6 py-2.5 bg-[#E91E63] text-white font-jp-body text-[0.6rem] tracking-[0.25em] uppercase hover:bg-[#C2185B] transition-all duration-300 rounded-sm shadow-md shadow-pink-200">
+              ✉️ Email Us
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer({ setActivePage }) {
   return (
@@ -881,7 +1075,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const PAGE = { Home, About, Services, Portfolio, Contact };
+  const PAGE = { Home, About, Services, Portfolio, Help, Contact };
   const PageComponent = PAGE[activePage];
 
   return (
