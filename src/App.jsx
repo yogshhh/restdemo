@@ -897,8 +897,8 @@ function Help() {
             const isHovered = hoveredIndex === i;
             return (
               <div key={i}
-                onMouseEnter={() => setHoveredIndex(i)}
-                onMouseLeave={() => setHoveredIndex(null)}
+                onMouseEnter={() => { setHoveredIndex(i); setOpenIndex(i); }}
+                onMouseLeave={() => { setHoveredIndex(null); setOpenIndex(null); }}
                 style={{
                   border: isOpen
                     ? "1px solid rgba(233,30,99,0.55)"
